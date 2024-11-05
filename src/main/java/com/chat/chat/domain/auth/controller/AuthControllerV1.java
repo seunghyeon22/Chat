@@ -46,7 +46,7 @@ public class AuthControllerV1 {
             summary = "get user name",
             description = "token을 기반으로 유저네임을 가져옵니다."
     )
-    @GetMapping("/get-user-name/{token}")
+    @GetMapping("/verify-token/{token}")
     public String getUserFromToken(
             @PathVariable("token") String token
     ){

@@ -18,7 +18,7 @@ public class User {
 
     @Column(nullable = false)
     private String name;
-    private Timestamp create_at;
+    private Timestamp created_at;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private UserCredentials userCredentials;

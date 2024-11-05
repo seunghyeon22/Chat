@@ -54,7 +54,8 @@ public class AuthService {
 
     public LoginResponse login(LoginRequest request) {
         Optional<User> user = userRepository.findByName(request.name());
-        if (user.isPresent()) {
+
+        if (!user.isPresent()) {
             log.error("USER_ALREADY_EXISTS : {}", request.name());
             throw new CustomException(ErrorCode.USER_ALREADY_EXISTS);
         }
@@ -82,7 +83,7 @@ public class AuthService {
     private User newUser(String name) {
         User newUser = User.builder()
                 .name(name)
-                .create_at(new Timestamp(System.currentTimeMillis()))
+                .created_at(new Timestamp(System.currentTimeMillis()))
                 .build();
         return newUser;
     }

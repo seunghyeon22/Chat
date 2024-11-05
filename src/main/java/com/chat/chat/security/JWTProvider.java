@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.bcel.Const;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 
@@ -111,8 +112,15 @@ public class JWTProvider {
         return JWT.decode(token);
     }
 
-    public static String getUserFromToken(String token){
-        DecodedJWT jwt  = decodedJWT(token);
+    public static String getUserFromToken(String token) {
+        DecodedJWT jwt = decodedJWT(token);
         return jwt.getSubject();
+    }
+    public static String extractToken(String header){
+        if(StringUtils.hasText(header) && header.startsWith("Bearer ")){
+            return header.substring(7);
+        }else{
+            throw new IllegalArgumentException("Invalid Auth Header");
+        }
     }
 }
